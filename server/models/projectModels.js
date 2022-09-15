@@ -13,5 +13,8 @@ mongoose.connect(MONGO_URI, {
 const Schema = mongoose.Schema;
 
 const projectSchema = new Schema({
-    name: String
+    name: {type: String, required: true},
+    items: [{ name: {type: String, required: true}, cost: {type: Number, required: true} }]
 })
+
+module.exports = mongoose.model('project', projectSchema);
