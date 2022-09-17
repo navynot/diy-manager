@@ -17,16 +17,21 @@ app.get('/projects', projectController.getAllProjects, (req, res) => {
     return res.status(200).json(res.locals.projects);
 });
 
-app.get('/projects/:name', projectController.getDetails, (req, res) => {
+app.get('/projects/:name', projectController.getItems, (req, res) => {
     return res.status(200).json(res.locals);
 });
 
-app.post('/projects', projectController.createProject, (req, res) => {
-    return res.status(200).json(res.locals.project);
+app.post('/projects/create', projectController.createProject, (req, res) => {
+    return res.status(200).redirect('/');
 });
 
 app.patch('/projects/:name', projectController.addItem, (req, res) => {
-    return res.status(200).json(res.locals.project);
+    return res.status(200).redirect(`/projects/${req.params.name}`);
+})
+
+app.delete('/projects/:name', projectController.deleteObjects, (req, res) => {
+    if (res.locals.query === 'item') return res.status(200).redirect(`/projects/${req.params.name}`);
+    return res.status(200).redirect('/');
 })
 
 //catch all route handler

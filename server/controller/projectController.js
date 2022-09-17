@@ -23,7 +23,7 @@ const projectController = {
                 if (err) return next({
                     log: 'Express error handler caught error in createProject',
                     status: 500,
-                    message: {err: err.message}
+                    message: {err: err}
                 });
 
                 console.log('project successfully created');
@@ -32,7 +32,34 @@ const projectController = {
             });
     },
 
-    getDetails: (req, res, next) => {
+    deleteObjects: (req, res, next) => {
+        const { name } = req.params;
+        const { item } = req.query;
+
+        if (item) {
+            projectModel.findOne({name: name}, (err, project) => {
+                const newItems = project.items.filter(el => el.name != item);
+                project.items = newItems;
+                project.save();
+                console.log('item deleted');
+                res.locals.query = 'item';
+                return next();
+            })
+        }
+        else {
+            projectModel.findOneAndDelete({name: name}, (err, deleted) => {
+                if (deleted === null) return next({
+                    log: 'Express error handler caught error in deleteProject',
+                    status: 500,
+                    message: {err: err}
+                })
+                res.locals.query = 'project';
+                return next();
+            })
+        }
+    },
+
+    getItems: (req, res, next) => {
    
         const { name } = req.params;
 
@@ -43,8 +70,6 @@ const projectController = {
                 message: {err: err}
             });
 
-            console.log('received project details');
-            console.log(projectInfo);
             res.locals.name = projectInfo.name;
             res.locals.items = projectInfo.items;
             return next();
@@ -53,19 +78,14 @@ const projectController = {
 
     addItem: (req, res, next) => {
         const { name } = req.params;
-        const { items } = req.body;
+        const { item } = req.body;
 
-        projectModel.findOneAndUpdate({name: name}, {items: items}, {new: true}, (err, response) => {
-            if (err) return next({
-                log: 'Express error handler caught error in addItem',
-                status: 500,
-                message: {err: err.message}
-            })
-            console.log('updated project items');
-            res.locals.project = response;
-            return next();
+        projectModel.findOne({name: name}, (err, project) => {
+            project.items.push(item);
+            project.save();
         })
-    }
+        return next();
+    },
 }
 
 module.exports = projectController;
