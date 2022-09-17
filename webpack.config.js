@@ -30,6 +30,9 @@ module.exports = {
         static: {
             publicPath: '/',
             directory: path.resolve(__dirname, "build")
+        },
+        proxy: {
+            '/projects': 'http://localhost:3000'
         }
     }
 }

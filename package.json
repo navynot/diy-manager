@@ -6,7 +6,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon server/server.js",
-    "dev": "webpack serve --open --hot"
+    "dev": "nodemon server/server.js & webpack serve --open --hot"
   },
   "nodemonConfig": {
     "ignore": [
