@@ -32,7 +32,7 @@ const projectController = {
             });
     },
 
-    deleteObjects: (req, res, next) => {
+    deleteObject: (req, res, next) => {
         const { name } = req.params;
         const { item } = req.query;
 

@@ -29,7 +29,7 @@ app.patch('/projects/:name', projectController.addItem, (req, res) => {
     return res.status(200).redirect(`/projects/${req.params.name}`);
 })
 
-app.delete('/projects/:name', projectController.deleteObjects, (req, res) => {
+app.delete('/projects/:name', projectController.deleteObject, (req, res) => {
     if (res.locals.query === 'item') return res.status(200).redirect(`/projects/${req.params.name}`);
     return res.status(200).redirect('/');
 })
