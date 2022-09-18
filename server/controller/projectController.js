@@ -27,7 +27,6 @@ const projectController = {
                 });
 
                 console.log('project successfully created');
-                res.locals.project = response;
                 return next();
             });
     },
@@ -53,6 +52,7 @@ const projectController = {
                     status: 500,
                     message: {err: err}
                 })
+                console.log('deleted project');
                 res.locals.query = 'project';
                 return next();
             })

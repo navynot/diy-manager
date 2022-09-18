@@ -1,0 +1,119 @@
+.projectContainer {
+    /*dimensions*/
+    background-color: #212121;
+    height: 65%;
+    width: 30%;
+
+    /*location*/
+    margin: 0;
+    position: relative;
+    top: 50%;
+    left: 1%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+
+    /*contents*/
+    display: flex;
+    flex-direction: column;
+}
+
+
+
+#projectHeader {
+    margin-top: 0;
+    margin-left: 2%;
+    color: #FFFFFF;
+    text-decoration: underline;
+}
+
+#projectForm {
+    display: flex;
+}
+
+#submitProject {
+    background-color:#181818;
+    padding-right: 1em;
+    border: none;
+    color: #AAAAAA;
+}
+
+#submitProject:hover {
+    color: #FFFFFF;
+    text-decoration: underline;
+    cursor: pointer;
+}
+input[type=text] {
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    padding: 12px 10px;
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+    outline: none;
+}
+
+input[type=text]:focus {
+    border: 3px solid lightblue;
+}
+
+#addProject {
+    background-color: #181818;
+    width: 10%;
+    border: none;
+    font-size: 150%;
+    color: #AAAAAA;
+}
+
+#addProject:hover {
+    color:#FFFFFF;
+    border: ridge 1px #FFFFFF;
+    cursor: pointer;
+}
+
+#addProject:active {
+    background-color: #3D3D3D;
+}
+.project {
+    width: 100%;
+}
+
+#projectBtn{
+    background-color: #212121;
+    height: 100%;
+    width: 93.05%;
+    padding: 2%;
+    border: none;
+    color: #AAAAAA;
+    text-align: left;
+}
+
+#deleteProjectBtn {
+    background-color: #212121;
+    height: 100%;
+    width: 6.95%;
+    border: none;
+    color: rgba(255, 255, 255, 20%);
+}
+
+#projectBtn:hover {
+    border-right: 10px solid lightblue;
+    color: #AAAAAA;
+    cursor: pointer;
+    text-decoration: underline dashed 2px;
+}
+
+#deleteProjectBtn:hover {
+    color: #FFFFFF;
+    text-decoration: underline dashed #FFFFFF;
+    cursor: pointer;
+}
+
+#projectBtn:active {
+    background-color: #3D3D3D;
+    color: #FFFFFF;
+    text-decoration: underline;
+}
+
+#deleteProjectBtn:active {
+    background-color: #3D3D3D;
+}
