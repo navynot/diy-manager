@@ -18,7 +18,7 @@ export const ProjectContainer = ({projects, setSelectedProject, checkUpdate, set
                 return (
                     <div className='project'>
                         <Delete 
-                            key={'d' + project._id} 
+                            key={'deleted' + project._id} 
                             name={project.name}
                             checkUpdate={checkUpdate}
                             setUpdate={setUpdate} 
@@ -26,7 +26,9 @@ export const ProjectContainer = ({projects, setSelectedProject, checkUpdate, set
                         <Project 
                             key={project._id} 
                             project={project}
-                            setSelectedProject={setSelectedProject} 
+                            setSelectedProject={setSelectedProject}
+                            checkUpdate={checkUpdate}
+                            setUpdate={setUpdate}
                         />
                     </div> 
                 )
@@ -37,7 +39,6 @@ export const ProjectContainer = ({projects, setSelectedProject, checkUpdate, set
 
 const Form = ({setCheckCreate, setCheckAdd, setNewProject, newProject, checkUpdate, setUpdate}) => {
     const handleNameInput = (event) => {
-        console.log(event.target.value);
         setNewProject(event.target.value);
     }
 

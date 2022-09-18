@@ -65,13 +65,14 @@ const projectController = {
 
         projectModel.findOne({name: name}, (err, projectInfo) => {
             if (projectInfo === null) return next({
-                log: 'Express error handler caught error in getDetails',
+                log: 'Express error handler caught error in getItems',
                 status: 500,
                 message: {err: err}
             });
 
             res.locals.name = projectInfo.name;
             res.locals.items = projectInfo.items;
+            console.log('found items');
             return next();
         });
     },
@@ -81,8 +82,14 @@ const projectController = {
         const { item } = req.body;
 
         projectModel.findOne({name: name}, (err, project) => {
+            if (err) {return next({
+                log: 'Express error handler caught error in addItem',
+                status: 500,
+                message: {err: err}
+            })}
             project.items.push(item);
             project.save();
+            console.log('added item');
         })
         return next();
     },

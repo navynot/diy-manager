@@ -1,19 +1,129 @@
+.wrapper {
+    background-color: #181818;
+    height: 65%;
+    width: 66%;
+
+    margin: 0;
+    position: relative;
+    top:50%;
+    left: 3%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+
+    display: flex;
+    flex-direction: row;
+}
+.popupWrapper {
+    width: 25%;
+    display: flex;
+    flex-direction: column;
+    margin-left: 2%;
+}
 .itemContainer {
      /*dimensions*/
      background-color: #212121;
-     height: 65%;
-     width: 50%;
+     height: 100%;
+     width:75%;
  
      /*location*/
      margin: 0;
-     position: relative;
-     top: 50%;
-     left: 3%;
-     -ms-transform: translateY(-50%);
-     transform: translateY(-50%);
  
      /*contents*/
      display: flex;
      flex-direction: column;
 
+}
+
+#addItem {
+    background-color: #181818;
+    border: none;
+    color: #AAAAAA;
+    font-size: 100%;
+}
+
+#addItem:hover {
+    color: #FFFFFF;
+    border: ridge 1px;
+    cursor: pointer;
+}
+
+#addItem:active {
+    background-color: #3D3D3D;
+}
+
+#itemForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    border: ridge 3px #3D3D3D;
+    height: 50%;
+}
+
+#itemName {
+    background-color: #3D3D3D;
+    width: 90%;
+    height: 10%;
+    border: ridge 1px black;
+}
+
+#itemName:focus{
+    border: ridge 1px lightblue;
+}
+
+#itemCost {
+    background-color: #3D3D3D;
+    box-sizing: border-box;
+    width: 90%;
+    height: 10%;
+    border: ridge 1px black;
+}
+
+#submitItem {
+    background-color: #181818;
+    border: ridge 2px #3D3D3D;
+    color: #3D3D3D;
+    height: 15%;
+    width: 50%;
+}
+
+#submitItem:hover {
+    background-color: #3D3D3D;
+    border: none;
+    color: #FFFFFF;
+    cursor: pointer;
+}
+
+#submitItem:active {
+    background-color: lightblue;
+}
+
+.itemWrapper {
+    background-color: #212121;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#cost {
+    margin-right: 2%;
+    color: #AAAAAA;
+}
+
+#deleteItem {
+    background-color: #212121;
+    color: #AAAAAA;
+    border: none;
+}
+
+#editItem {
+    background-color: #212121;
+    color: #AAAAAA;
+    border: none;
+}
+
+#itemBtn {
+    background-color: #212121;
+    color: #AAAAAA;
+    border: none;
 }

@@ -1,8 +1,8 @@
 import React from 'react';
 
-const Project = ({project, setSelectedProject}) => {
+const Project = ({project, setSelectedProject, checkUpdate, setUpdate}) => {
     return (
-            <button id='projectBtn' onClick={()=>setSelectedProject([project])}>{project.name}</button>
+            <button id='projectBtn' onClick={()=>{setSelectedProject(project)}}>{project.name}</button>
     )
 }
 

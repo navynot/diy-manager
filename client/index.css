@@ -22,4 +22,11 @@ html, body {
     justify-content: space-between;
 }
 
+#projectHeader {
+    margin-top: 0;
+    margin-left: 2%;
+    color: #FFFFFF;
+    text-decoration: underline;
+}
+
 

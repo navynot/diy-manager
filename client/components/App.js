@@ -6,7 +6,7 @@ import '../index.css';
 export const App = () => {
 
     const [projects, setProjects] = useState([]);
-    const [selectedProject, setSelectedProject] = useState([]);
+    const [selectedProject, setSelectedProject] = useState({});
     const [checkUpdate, setUpdate] = useState(false);
 
     useEffect(() => {
@@ -14,7 +14,6 @@ export const App = () => {
         fetch('/projects')
             .then(res => res.json())
             .then(projs => {
-                console.log(projs);
                 projs.forEach(proj => setProjects(state => [...state, proj]));
             });
     }, [checkUpdate])
@@ -28,7 +27,9 @@ export const App = () => {
                 setUpdate={setUpdate}
             />
             <ItemContainer 
-                selectedProject={selectedProject}
+                project={selectedProject}
+                checkUpdate={checkUpdate}
+                setUpdate={setUpdate}
             />
         </div>
     )

@@ -26,7 +26,7 @@ app.post('/projects/create', projectController.createProject, (req, res) => {
 });
 
 app.patch('/projects/:name', projectController.addItem, (req, res) => {
-    return res.status(200).redirect(`/projects/${req.params.name}`);
+    return res.status(200);
 })
 
 app.delete('/projects/:name', projectController.deleteObject, (req, res) => {
