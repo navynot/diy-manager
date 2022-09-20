@@ -24,15 +24,14 @@
      background-color: #212121;
      height: 100%;
      width:75%;
+     border-left: ridge 1px #3D3D3D;
+     border-bottom: ridge 1px #3D3D3D;
+     border-right: ridge 1px #3D3D3D;
  
      /*location*/
      margin: 0;
- 
-     /*contents*/
-     display: flex;
-     flex-direction: column;
-
 }
+
 
 #addItem {
     background-color: #181818;
@@ -56,7 +55,9 @@
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
-    border: ridge 3px #3D3D3D;
+    border-left: ridge 1px #3D3D3D;
+     border-bottom: ridge 1px #3D3D3D;
+     border-right: ridge 1px #3D3D3D;
     height: 50%;
 }
 
@@ -81,7 +82,7 @@
 
 #submitItem {
     background-color: #181818;
-    border: ridge 2px #3D3D3D;
+    border: ridge 1px #3D3D3D;
     color: #3D3D3D;
     height: 15%;
     width: 50%;

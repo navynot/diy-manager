@@ -25,8 +25,8 @@ const projectController = {
                     status: 500,
                     message: {err: err}
                 });
-
-                console.log('project successfully created');
+                console.log('project created');
+                res.locals.response = response;
                 return next();
             });
     },

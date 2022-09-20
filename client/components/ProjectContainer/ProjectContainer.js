@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Project, Delete } from './Project';
+import { Project, Delete, Add } from './Project';
 import './ProjectContainer.css';
 
 export const ProjectContainer = ({projects, setSelectedProject, checkUpdate, setUpdate}) => {
@@ -11,7 +11,7 @@ export const ProjectContainer = ({projects, setSelectedProject, checkUpdate, set
         <section className='projectContainer'>
             <div className='header'>
                 <h3 id='projectHeader'>Projects</h3>
-                {checkCreate ? <Form  setCheckCreate={setCheckCreate} setCheckAdd={setCheckAdd} setNewProject={setNewProject} newProject={newProject} checkUpdate={checkUpdate} setUpdate={setUpdate}/> : null}
+                {checkCreate ? <Add  setCheckCreate={setCheckCreate} setCheckAdd={setCheckAdd} setNewProject={setNewProject} newProject={newProject} checkUpdate={checkUpdate} setUpdate={setUpdate}/> : null}
                 {checkAdd ? <button id='addProject' onClick={()=>{setCheckCreate(true), setCheckAdd(false)}}>+</button> : null}
             </div>
             {projects.map(project => {
@@ -36,36 +36,3 @@ export const ProjectContainer = ({projects, setSelectedProject, checkUpdate, set
         </section>
     )
 };
-
-const Form = ({setCheckCreate, setCheckAdd, setNewProject, newProject, checkUpdate, setUpdate}) => {
-    const handleNameInput = (event) => {
-        setNewProject(event.target.value);
-    }
-
-    const handleSubmit = (name) => {
-        if (name) {
-            fetch('/projects/create', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({name : name})
-            })
-            setCheckCreate(false);
-            setCheckAdd(true);
-            setNewProject('');
-            setUpdate(!checkUpdate);
-            return;
-        }else {
-            setCheckCreate(false);
-            setCheckAdd(true);
-            return;
-        };
-    }
-    return (
-        <form id='projectForm' onSubmit={()=> handleSubmit(newProject)}>
-                <input type="text" placeholder='New Project' value={newProject} onChange={(event)=> handleNameInput(event)}/>
-                <button type='submit ' id='submitProject'>Ok</button>
-        </form>
-    )
-}

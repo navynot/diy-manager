@@ -22,7 +22,7 @@ app.get('/projects/:name', projectController.getItems, (req, res) => {
 });
 
 app.post('/projects/create', projectController.createProject, (req, res) => {
-    return res.status(200);
+    return res.status(200).json({});
 });
 
 app.patch('/projects/:name', projectController.addItem, (req, res) => {
@@ -31,7 +31,7 @@ app.patch('/projects/:name', projectController.addItem, (req, res) => {
 
 app.delete('/projects/:name', projectController.deleteObject, (req, res) => {
     if (res.locals.query === 'item') return res.status(200).redirect(`/projects/${req.params.name}`);
-    return res.status(200);
+    return res.status(200).json({});
 })
 
 //catch all route handler

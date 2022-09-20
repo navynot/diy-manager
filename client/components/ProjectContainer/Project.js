@@ -11,10 +11,49 @@ const Delete = ({name, checkUpdate, setUpdate}) => {
         fetch(`/projects/${name}`, {
             method: 'DELETE',
         })
-        setUpdate(!checkUpdate);
-    }
+        .then(() => {
+            setUpdate(!checkUpdate);
+        });
+    ;}
+
     return (
             <button id='deleteProjectBtn' onClick={()=>handleDelete(name)}>X</button>
     )
 }
-export { Project, Delete };
+
+const Add = ({setCheckCreate, setCheckAdd, setNewProject, newProject, checkUpdate, setUpdate}) => {
+    const handleNameInput = (event) => {
+        return setNewProject(event.target.value);
+    };
+
+    const handleSubmit = (name) => {
+        if (name != '') {
+            fetch('/projects/create', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({name : name})
+            })
+            .then(() => {
+                setCheckCreate(false) 
+                setCheckAdd(true)
+                setNewProject('')
+                setUpdate(!checkUpdate);
+                return console.log('render triggered')
+            });
+        }else {
+            setCheckCreate(false);
+            setCheckAdd(true);
+            return console.log('name empty');
+        }
+    };
+
+    return (
+        <div id='projectForm'>
+                <input type="text" placeholder='New Project' value={newProject} onChange={(event)=>handleNameInput(event)}/>
+                <button id='submitProject' onClick={()=>handleSubmit(newProject)}>Ok</button>
+        </div>
+    );
+};
+export { Project, Delete, Add };

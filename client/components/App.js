@@ -9,14 +9,16 @@ export const App = () => {
     const [selectedProject, setSelectedProject] = useState({});
     const [checkUpdate, setUpdate] = useState(false);
 
-    useEffect(() => {
-        setProjects([]);
-        fetch('/projects')
-            .then(res => res.json())
-            .then(projs => {
-                projs.forEach(proj => setProjects(state => [...state, proj]));
-            });
-    }, [checkUpdate])
+    useEffect(() => { 
+            fetch('/projects')
+                .then(res => res.json())
+                .then(projs => projs.forEach(proj => setProjects(state => [...state, proj])));
+        return () => {
+            setProjects([]);
+        };
+    }, [checkUpdate]);
+
+    console.log('projects', projects);
     
     return (
         <div className='appContainer'>

@@ -8,8 +8,7 @@ export const ItemContainer = ({project, checkUpdate, setUpdate}) => {
     const [newCost, setNewCost] = useState(0);
     const [checkCreate, setCheckCreate] = useState(false);
     const [checkAdd, setCheckAdd] = useState(true);
-    console.log(checkUpdate);
-    console.log(project.name);
+
     useEffect(() => {
         setItems([]);
         fetch(`/projects/${project.name}`)
@@ -52,12 +51,10 @@ export const ItemContainer = ({project, checkUpdate, setUpdate}) => {
 const Form = ({setItems, newItem, setNewItem, newCost, setNewCost, setCheckCreate, setCheckAdd, projectName, checkUpdate, setUpdate}) => {
 
     const handleNameInput = (event) => {
-        console.log(event.target.value);
         setNewItem(event.target.value);
     }
 
     const handleCostInput = (event) => {
-        console.log(event.target.value);
         setNewCost(event.target.value);
     }
 
