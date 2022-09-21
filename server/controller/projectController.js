@@ -77,21 +77,22 @@ const projectController = {
         });
     },
 
-    addItem: (req, res, next) => {
+    addItem: async (req, res, next) => {
         const { name } = req.params;
         const { item } = req.body;
 
-        projectModel.findOne({name: name}, (err, project) => {
-            if (err) {return next({
-                log: 'Express error handler caught error in addItem',
-                status: 500,
-                message: {err: err}
-            })}
+        try {
+            const project = await projectModel.findOne({name: name});
+
             project.items.push(item);
             project.save();
-            console.log('added item');
-        })
-        return next();
+
+            return next();
+
+        }
+        catch (err) {return next(err);
+
+        }
     },
 }
 
