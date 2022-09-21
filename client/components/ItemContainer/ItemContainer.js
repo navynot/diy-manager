@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Item } from './Item';
+import { Item, Add } from './Item';
 import './ItemContainer.css';
 
 export const ItemContainer = ({project}) => {
@@ -29,7 +29,6 @@ export const ItemContainer = ({project}) => {
         }, [checkUpdate, project]);
 
     console.log('mount/render');
-    console.log('mount/render items', items);
  
     return (
         <div className='wrapper'>
@@ -42,7 +41,7 @@ export const ItemContainer = ({project}) => {
             </section>
             <section className='popupWrapper'>
                {checkCreate ?  
-                    <Form 
+                    <Add 
                         newItem={newItem} 
                         setNewItem={setNewItem} 
                         newCost={newCost} 
@@ -58,41 +57,3 @@ export const ItemContainer = ({project}) => {
     )
 }
 
-const Form = ({newItem, setNewItem, newCost, setNewCost, setCheckCreate, setCheckAdd, projectName, checkUpdate, setUpdate}) => {
-
-    const handleNameInput = (event) => {
-        return setNewItem(event.target.value);
-    }
-
-    const handleCostInput = (event) => {
-        return setNewCost(event.target.value);
-    }
-
-    const handleSubmit = (projectName, name, cost) => {
-        if (name && cost) {
-                fetch(`/projects/${projectName}`, {
-                method: 'PATCH',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({item: {name: name, cost: cost}})
-            })
-            .then (() => {
-                setTimeout(setUpdate(!checkUpdate), 10000);
-                console.log('submit triggered');
-            })
-        }else {
-            setCheckCreate(false);
-            setCheckAdd(true);
-            return console.log('empty input(s)');
-        }
-    }
-
-    return (
-        <div id='itemForm'>
-            <input id='itemName' type='text' placeholder='Name' value={newItem} onChange={(event)=>handleNameInput(event)}/>
-            <input id='itemCost' type='number' placeholder='Cost' value={newCost} onChange={(event)=>handleCostInput(event)}/>
-            <button id='submitItem' onClick={()=>handleSubmit(projectName, newItem, newCost)}>Add</button>
-        </div>
-    )
-}

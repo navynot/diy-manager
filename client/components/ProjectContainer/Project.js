@@ -1,17 +1,18 @@
 import React from 'react';
 
-const Project = ({project, setSelectedProject, checkUpdate, setUpdate}) => {
+const Project = ({project, setSelectedProject}) => {
     return (
             <button id='projectBtn' onClick={()=>{setSelectedProject(project)}}>{project.name}</button>
     )
 }
 
-const Delete = ({name, checkUpdate, setUpdate}) => {
+const Delete = ({name, selectedProject, setSelectedProject, checkUpdate, setUpdate}) => {
     const handleDelete = (name) => {
         fetch(`/projects/${name}`, {
             method: 'DELETE',
         })
         .then(() => {
+            if (name === selectedProject.name) setSelectedProject({});
             setUpdate(!checkUpdate);
         });
     ;}
@@ -36,11 +37,8 @@ const Add = ({setCheckCreate, setCheckAdd, setNewProject, newProject, checkUpdat
                 body: JSON.stringify({name : name})
             })
             .then(() => {
-                setCheckCreate(false) 
-                setCheckAdd(true)
-                setNewProject('')
                 setUpdate(!checkUpdate);
-                return console.log('render triggered')
+                return console.log('project added')
             });
         }else {
             setCheckCreate(false);
