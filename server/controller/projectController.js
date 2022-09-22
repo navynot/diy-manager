@@ -31,30 +31,43 @@ const projectController = {
             });
     },
 
-    deleteObject: (req, res, next) => {
+    deleteObject: async (req, res, next) => {
         const { name } = req.params;
         const { item } = req.query;
-
-        if (item) {
-            projectModel.findOne({name: name}, (err, project) => {
-                const newItems = project.items.filter(el => el.name != item);
-                project.items = newItems;
-                project.save();
-                console.log('item deleted');
-                res.locals.query = 'item';
+        try{
+            if (item) {
+                const project = await projectModel.findOne({name: name});
+                
+                const filterandDelete = (proj) => {
+                    const newItems = proj.items.filter(el => el.name != item);
+                    proj.items = newItems;
+                    return proj.save();
+                }
+                
+                await filterandDelete(project);
+    
+                console.log('item deletd');
+                res.locals.query ='item';
                 return next();
-            })
-        }
-        else {
-            projectModel.findOneAndDelete({name: name}, (err, deleted) => {
-                if (deleted === null) return next({
-                    log: 'Express error handler caught error in deleteProject',
-                    status: 500,
-                    message: {err: err}
+            }
+            else {
+                projectModel.findOneAndDelete({name: name}, (err, deleted) => {
+                    if (deleted === null) return next({
+                        log: 'Express error handler caught error in deleteProject',
+                        status: 500,
+                        message: {err: err}
+                    })
+                    console.log('deleted project');
+                    res.locals.query = 'project';
+                    return next();
                 })
-                console.log('deleted project');
-                res.locals.query = 'project';
-                return next();
+            }
+        }
+        catch (err) {
+            return next({
+                log: 'Express error handler caught error in deleteItems',
+                status: 500,
+                message: {err: err}
             })
         }
     },
@@ -80,18 +93,33 @@ const projectController = {
     addItem: async (req, res, next) => {
         const { name } = req.params;
         const { item } = req.body;
+        const { itemName, editName, editCost } = req.query;
 
         try {
-            const project = await projectModel.findOne({name: name});
+            if ( itemName ) {
+                const project = await projectModel.findOne({name: name});
 
-            project.items.push(item);
-            project.save();
+                const editItem= (proj) => {
+                    const index = proj.items.indexOf(itemName);
 
-            return next();
+                    if (editName) proj.items[index][name] = editName;
+                    if (editCost) proj.items[index][cost] = editCost;
 
+                    return proj.save();
+                }
+
+                await editItem(project);
+                return next();
+            }else {
+                const project = await projectModel.findOne({name: name});
+    
+                project.items.push(item);
+                project.save();
+    
+                return next();
+            }
         }
         catch (err) {return next(err);
-
         }
     },
 }

@@ -1,12 +1,21 @@
 import React from 'react';
 
-const Item = ({name, cost}) => {
+const Item = ({itemName, cost, projectName, checkUpdate, setUpdate, newName, newCost, setNewName, setNewCost}) => {
+    const handleDelete = (itemName) => {
+        fetch(`/projects/${projectName}?item=${itemName}`, {
+            method: 'DELETE'
+        })
+        .then(()=> {
+            setUpdate(!checkUpdate);
+            console.log('delete button triggered');
+        })
+    }
     return (
         <div className='itemWrapper'>
             <div>
-                <button id='deleteItem'>x</button>
-                <button id='editItem'>edit</button>
-                <button id='itemBtn'>{name}</button>
+                <button id='deleteItem' onClick={()=>handleDelete(itemName)}>x</button>
+                <button id='editItem' onClick={()=>console.log('edit clicked')}>edit</button>
+                <button id='itemBtn'>{itemName}</button>
             </div>
             <span id='cost'>{'$' + cost}</span>
         </div>

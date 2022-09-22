@@ -30,7 +30,7 @@ app.patch('/projects/:name', projectController.addItem, (req, res) => {
 })
 
 app.delete('/projects/:name', projectController.deleteObject, (req, res) => {
-    if (res.locals.query === 'item') return res.status(200).redirect(`/projects/${req.params.name}`);
+    if (res.locals.query === 'item') return res.status(200).json({});
     return res.status(200).json({});
 })
 

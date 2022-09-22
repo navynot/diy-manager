@@ -37,7 +37,19 @@ export const ItemContainer = ({project}) => {
                     <h3 id='projectHeader'>{project.name}</h3>
                     {project.name && checkAdd ? <button id='addItem' onClick={()=> {setCheckCreate(true), setCheckAdd(false)}}>+Item</button> : null}
                 </div>
-                {project.name ? items.map(item => <Item key={item._id} name={item.name} cost={item.cost}/>) : null}
+                {project.name ? items.map(item => 
+                    <Item 
+                        key={item._id} 
+                        itemName={item.name} 
+                        cost={item.cost} 
+                        projectName={project.name} 
+                        checkUpdate={checkUpdate} 
+                        setUpdate={setUpdate} 
+                        newName={newItem} 
+                        newCost={newCost} 
+                        setNewName={setNewItem} 
+                        setNewCost={setNewCost}
+                    />) : null}
             </section>
             <section className='popupWrapper'>
                {checkCreate ?  
