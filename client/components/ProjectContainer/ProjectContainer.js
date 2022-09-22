@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Project, Delete, Add } from './Project';
+import { Project, Add } from './Project';
 import './ProjectContainer.css';
 
 export const ProjectContainer = ({selectedProject, setSelectedProject}) => {
@@ -30,23 +30,14 @@ export const ProjectContainer = ({selectedProject, setSelectedProject}) => {
             </div>
             {projects.map(project => {
                 return (
-                    <div className='project'>
-                        <Delete 
-                            key={'deleted' + project._id} 
-                            name={project.name}
-                            checkUpdate={checkUpdate}
-                            setUpdate={setUpdate} 
-                            selectedProject={selectedProject}
-                            setSelectedProject={setSelectedProject}
-                        />
-                        <Project 
-                            key={project._id} 
-                            project={project}
-                            setSelectedProject={setSelectedProject}
-                            checkUpdate={checkUpdate}
-                            setUpdate={setUpdate}
-                        />
-                    </div> 
+                    <Project 
+                        key={project._id} 
+                        project={project}
+                        selectedProject={selectedProject}
+                        setSelectedProject={setSelectedProject}
+                        checkUpdate={checkUpdate}
+                        setUpdate={setUpdate}
+                    />
                 )
             })}
         </section>

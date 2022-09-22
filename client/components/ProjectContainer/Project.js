@@ -1,12 +1,6 @@
 import React from 'react';
 
-const Project = ({project, setSelectedProject}) => {
-    return (
-            <button id='projectBtn' onClick={()=>{setSelectedProject(project)}}>{project.name}</button>
-    )
-}
-
-const Delete = ({name, selectedProject, setSelectedProject, checkUpdate, setUpdate}) => {
+const Project = ({project, selectedProject, setSelectedProject, checkUpdate, setUpdate}) => {
     const handleDelete = (name) => {
         fetch(`/projects/${name}`, {
             method: 'DELETE',
@@ -16,9 +10,11 @@ const Delete = ({name, selectedProject, setSelectedProject, checkUpdate, setUpda
             setUpdate(!checkUpdate);
         });
     ;}
-
     return (
-            <button id='deleteProjectBtn' onClick={()=>handleDelete(name)}>X</button>
+        <div className='project'>
+            <button id='deleteProjectBtn' onClick={()=>handleDelete(project.name)}>X</button>
+            <button id='projectBtn' onClick={()=>{setSelectedProject(project)}}>{project.name}</button>
+        </div>
     )
 }
 
@@ -54,4 +50,4 @@ const Add = ({setCheckCreate, setCheckAdd, setNewProject, newProject, checkUpdat
         </div>
     );
 };
-export { Project, Delete, Add };
+export { Project, Add };
