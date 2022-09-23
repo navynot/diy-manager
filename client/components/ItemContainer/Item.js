@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Item = ({itemName, cost, projectName, checkUpdate, setUpdate, newName, newCost, setNewName, setNewCost}) => {
+const Item = ({itemName, cost, projectName, checkUpdate, setUpdate, setCheckCreate, setSelectedItem, setSelectedCost}) => {
     const handleDelete = (itemName) => {
         fetch(`/projects/${projectName}?item=${itemName}`, {
             method: 'DELETE'
@@ -10,11 +10,17 @@ const Item = ({itemName, cost, projectName, checkUpdate, setUpdate, newName, new
             console.log('delete button triggered');
         })
     }
+
+    const handleEdit = (itemName) => {
+        setSelectedItem(itemName);
+        setSelectedCost(cost);
+        setCheckCreate(true);
+    }
     return (
         <div className='itemWrapper'>
             <div>
                 <button id='deleteItem' onClick={()=>handleDelete(itemName)}>x</button>
-                <button id='editItem' onClick={()=>console.log('edit clicked')}>edit</button>
+                <button id='editItem' onClick={()=>handleEdit(itemName)}>edit</button>
                 <button id='itemBtn'>{itemName}</button>
             </div>
             <span id='cost'>{'$' + cost}</span>
@@ -22,7 +28,7 @@ const Item = ({itemName, cost, projectName, checkUpdate, setUpdate, newName, new
     )
 }
 
-const Add = ({newItem, setNewItem, newCost, setNewCost, setCheckCreate, setCheckAdd, projectName, checkUpdate, setUpdate}) => {
+const Add = ({newItem, setNewItem, newCost, setNewCost, setCheckCreate, setCheckAdd, projectName, checkUpdate, setUpdate, selectedItem, selectedCost}) => {
 
     const handleNameInput = (event) => {
         return setNewItem(event.target.value);
@@ -42,8 +48,7 @@ const Add = ({newItem, setNewItem, newCost, setNewCost, setCheckCreate, setCheck
                 body: JSON.stringify({item: {name: name, cost: cost}})
             })
             .then (() => {
-                setTimeout(setUpdate(!checkUpdate), 10000);
-                console.log('submit triggered');
+                setUpdate(!checkUpdate);
             })
         }else {
             setCheckCreate(false);
@@ -52,6 +57,34 @@ const Add = ({newItem, setNewItem, newCost, setNewCost, setCheckCreate, setCheck
         }
     }
 
+    const handleEdit = (projectName, itemName, newName, newCost) => {
+        if (newName || newCost) {
+            fetch(`/projects/${projectName}`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({item: {oldName: itemName, newName: newName, newCost: newCost}})
+            })
+            .then(() => {
+                setUpdate(!checkUpdate);
+            })
+        }else {
+            setCheckCreate(false)
+            setCheckAdd(true);
+            return console.log('empty input(s)');
+        }
+    }
+
+    if (selectedItem) {
+        return (
+            <div id='itemForm'>
+            <input id='itemName' type='text' placeholder={selectedItem} value={newItem} onChange={(event)=>handleNameInput(event)}/>
+            <input id='itemCost' type='number' placeholder={'$' + selectedCost} value={newCost} onChange={(event)=>handleCostInput(event)}/>
+            <button id='submitItem' onClick={()=>handleEdit(projectName, selectedItem, newItem, newCost)}>Apply Changes</button>
+        </div>
+        )
+    }
     return (
         <div id='itemForm'>
             <input id='itemName' type='text' placeholder='Name' value={newItem} onChange={(event)=>handleNameInput(event)}/>

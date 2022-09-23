@@ -9,33 +9,34 @@ export const ItemContainer = ({project}) => {
     const [items, setItems] = useState([]);
     const [newItem, setNewItem] = useState('');
     const [newCost, setNewCost] = useState(0);
+    const [selectedItem, setSelectedItem] = useState('');
+    const [selectedCost, setSelectedCost] = useState(0);
 
     useEffect(() => {
-            console.log('effect triggered');
             fetch(`/projects/${project.name}`)
                 .then(res => res.json())
                 .then(proj => {
                     proj.items.forEach(item => setItems(state => [...state, item]));
-                    console.log('items fetched from effect trigger', proj.items);
                 })
             return () => {
-                console.log('unmount');
                 setItems([]);
                 setCheckCreate(false);
                 setCheckAdd(true);
                 setNewItem('');
                 setNewCost(0);
+                setSelectedItem('');
+                setSelectedCost(0);
             };
         }, [checkUpdate, project]);
-
-    console.log('mount/render');
  
     return (
         <div className='wrapper'>
             <section className='itemContainer'>
                 <div className='header'>
                     <h3 id='projectHeader'>{project.name}</h3>
-                    {project.name && checkAdd ? <button id='addItem' onClick={()=> {setCheckCreate(true), setCheckAdd(false)}}>+Item</button> : null}
+                    {project.name && checkAdd ? 
+                        <button id='addItem' onClick={()=> {setCheckCreate(true), setCheckAdd(false)}}>+Item</button> : 
+                        <button id='addItem' onClick={()=>(setCheckCreate(false), setCheckAdd(true))}>+Item</button>}
                 </div>
                 {project.name ? items.map(item => 
                     <Item 
@@ -43,12 +44,11 @@ export const ItemContainer = ({project}) => {
                         itemName={item.name} 
                         cost={item.cost} 
                         projectName={project.name} 
-                        checkUpdate={checkUpdate} 
-                        setUpdate={setUpdate} 
-                        newName={newItem} 
-                        newCost={newCost} 
-                        setNewName={setNewItem} 
-                        setNewCost={setNewCost}
+                        checkUpdate={checkUpdate}
+                        setUpdate={setUpdate}
+                        setCheckCreate={setCheckCreate}
+                        setSelectedItem={setSelectedItem} 
+                        setSelectedCost={setSelectedCost}
                     />) : null}
             </section>
             <section className='popupWrapper'>
@@ -63,6 +63,8 @@ export const ItemContainer = ({project}) => {
                         checkUpdate={checkUpdate}
                         setUpdate={setUpdate}
                         projectName={project.name}
+                        selectedItem={selectedItem}
+                        selectedCost={selectedCost}
                     /> : null }
             </section>
         </div>

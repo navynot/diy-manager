@@ -93,22 +93,10 @@ const projectController = {
     addItem: async (req, res, next) => {
         const { name } = req.params;
         const { item } = req.body;
-        const { itemName, editName, editCost } = req.query;
 
         try {
-            if ( itemName ) {
-                const project = await projectModel.findOne({name: name});
-
-                const editItem= (proj) => {
-                    const index = proj.items.indexOf(itemName);
-
-                    if (editName) proj.items[index][name] = editName;
-                    if (editCost) proj.items[index][cost] = editCost;
-
-                    return proj.save();
-                }
-
-                await editItem(project);
+            if ( item.oldName ) {
+                
                 return next();
             }else {
                 const project = await projectModel.findOne({name: name});
@@ -119,7 +107,11 @@ const projectController = {
                 return next();
             }
         }
-        catch (err) {return next(err);
+        catch (err) {return next({
+            log: 'Express error handler caught error in addItem',
+                status: 500,
+                message: {err: 'could not add/edit item'}
+        });
         }
     },
 }
