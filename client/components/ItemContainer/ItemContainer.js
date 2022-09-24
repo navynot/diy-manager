@@ -28,8 +28,15 @@ export const ItemContainer = ({project}) => {
                 setSelectedCost(0);
             };
         }, [checkUpdate, project]);
+
+    let totalCost = 0;
+
+    items.forEach(item => {
+        totalCost += item.cost;
+    })
  
     return (
+        <div className='container'>
         <div className='wrapper'>
             <section className='itemContainer'>
                 <div className='header'>
@@ -67,6 +74,11 @@ export const ItemContainer = ({project}) => {
                         selectedCost={selectedCost}
                     /> : null }
             </section>
+        </div>
+        <section className='totalBuild'>
+                <p>Build Cost:</p>
+                <p>{'$' + totalCost}</p>
+        </section>
         </div>
     )
 }

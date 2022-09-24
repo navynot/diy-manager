@@ -18,12 +18,12 @@ const Item = ({itemName, cost, projectName, checkUpdate, setUpdate, setCheckCrea
     }
     return (
         <div className='itemWrapper'>
-            <div>
+            <div className='actions'>
                 <button id='deleteItem' onClick={()=>handleDelete(itemName)}>x</button>
-                <button id='editItem' onClick={()=>handleEdit(itemName)}>edit</button>
+                {/* <button id='editItem' onClick={()=>handleEdit(itemName)}>edit</button> */}
                 <button id='itemBtn'>{itemName}</button>
             </div>
-            <span id='cost'>{'$' + cost}</span>
+            <div id='cost'>{'$' + cost}</div>
         </div>
     )
 }

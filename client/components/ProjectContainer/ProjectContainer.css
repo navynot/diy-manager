@@ -60,7 +60,7 @@ input[type=text]:focus {
 
 #addProject:hover {
     color:#FFFFFF;
-    border: ridge 1px #FFFFFF;
+    border: ridge 1px lightblue;
     cursor: pointer;
 }
 
@@ -97,8 +97,7 @@ input[type=text]:focus {
 }
 
 #deleteProjectBtn:hover {
-    color: #FFFFFF;
-    text-decoration: underline dashed #FFFFFF;
+    color: lightblue;
     cursor: pointer;
 }
 
