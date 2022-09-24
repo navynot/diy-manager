@@ -14,7 +14,7 @@ const Schema = mongoose.Schema;
 
 const projectSchema = new Schema({
     name: {type: String, required: true},
-    items: [{ name: {type: String, required: true}, cost: {type: Number, required: true} }]
+    items: [{ name: {type: String, required: true}, cost: {type: Number, required: true}, url: String }],
 })
 
 module.exports = mongoose.model('project', projectSchema);

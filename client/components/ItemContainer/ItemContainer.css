@@ -42,7 +42,7 @@
 
 #addItem:hover {
     color: #FFFFFF;
-    border: ridge 1px;
+    border: ridge 1px lightblue;
     cursor: pointer;
 }
 

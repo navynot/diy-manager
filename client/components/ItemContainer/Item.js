@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Item = ({itemName, cost, projectName, checkUpdate, setUpdate, setCheckCreate, setSelectedItem, setSelectedCost}) => {
+const Item = ({itemName, cost, url, projectName, checkUpdate, setUpdate, setCheckCreate, setSelectedItem, setSelectedCost}) => {
     const handleDelete = (itemName) => {
         fetch(`/projects/${projectName}?item=${itemName}`, {
             method: 'DELETE'
@@ -16,19 +16,20 @@ const Item = ({itemName, cost, projectName, checkUpdate, setUpdate, setCheckCrea
         setSelectedCost(cost);
         setCheckCreate(true);
     }
+
     return (
         <div className='itemWrapper'>
             <div className='actions'>
                 <button id='deleteItem' onClick={()=>handleDelete(itemName)}>x</button>
                 {/* <button id='editItem' onClick={()=>handleEdit(itemName)}>edit</button> */}
-                <button id='itemBtn'>{itemName}</button>
+                <button id='itemBtn' onClick={()=>parent.open(url)}>{itemName}</button>
             </div>
             <div id='cost'>{'$' + cost}</div>
         </div>
     )
 }
 
-const Add = ({newItem, setNewItem, newCost, setNewCost, setCheckCreate, setCheckAdd, projectName, checkUpdate, setUpdate, selectedItem, selectedCost}) => {
+const Add = ({newItem, setNewItem, newCost, setNewCost, newUrl, setNewUrl, setCheckCreate, setCheckAdd, projectName, checkUpdate, setUpdate, selectedItem, selectedCost}) => {
 
     const handleNameInput = (event) => {
         return setNewItem(event.target.value);
@@ -38,14 +39,19 @@ const Add = ({newItem, setNewItem, newCost, setNewCost, setCheckCreate, setCheck
         return setNewCost(event.target.value);
     }
 
-    const handleSubmit = (projectName, name, cost) => {
+    const handleUrlInput = (event) => {
+        console.log(newUrl)
+        return setNewUrl(event.target.value);
+    }
+
+    const handleSubmit = (projectName, name, cost, url) => {
         if (name && cost) {
                 fetch(`/projects/${projectName}`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({item: {name: name, cost: cost}})
+                body: JSON.stringify({item: {name: name, cost: cost, url: url}})
             })
             .then (() => {
                 setUpdate(!checkUpdate);
@@ -88,8 +94,9 @@ const Add = ({newItem, setNewItem, newCost, setNewCost, setCheckCreate, setCheck
     return (
         <div id='itemForm'>
             <input id='itemName' type='text' placeholder='Name' value={newItem} onChange={(event)=>handleNameInput(event)}/>
+            <input id='itemName' type='text' placeholder='Url' value={newUrl} onChange={(event)=>handleUrlInput(event)}/>
             <input id='itemCost' type='number' placeholder='Cost' value={newCost} onChange={(event)=>handleCostInput(event)}/>
-            <button id='submitItem' onClick={()=>handleSubmit(projectName, newItem, newCost)}>Add</button>
+            <button id='submitItem' onClick={()=>handleSubmit(projectName, newItem, newCost, newUrl)}>Add</button>
         </div>
     )
 }

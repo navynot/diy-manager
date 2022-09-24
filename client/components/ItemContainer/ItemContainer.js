@@ -9,6 +9,7 @@ export const ItemContainer = ({project}) => {
     const [items, setItems] = useState([]);
     const [newItem, setNewItem] = useState('');
     const [newCost, setNewCost] = useState(0);
+    const [newUrl, setNewUrl] = useState('');
     const [selectedItem, setSelectedItem] = useState('');
     const [selectedCost, setSelectedCost] = useState(0);
 
@@ -26,6 +27,7 @@ export const ItemContainer = ({project}) => {
                 setNewCost(0);
                 setSelectedItem('');
                 setSelectedCost(0);
+                setNewUrl('');
             };
         }, [checkUpdate, project]);
 
@@ -50,6 +52,7 @@ export const ItemContainer = ({project}) => {
                         key={item._id} 
                         itemName={item.name} 
                         cost={item.cost} 
+                        url={item.url}
                         projectName={project.name} 
                         checkUpdate={checkUpdate}
                         setUpdate={setUpdate}
@@ -65,6 +68,8 @@ export const ItemContainer = ({project}) => {
                         setNewItem={setNewItem} 
                         newCost={newCost} 
                         setNewCost={setNewCost} 
+                        newUrl={newUrl}
+                        setNewUrl={setNewUrl}
                         setCheckCreate={setCheckCreate} 
                         setCheckAdd={setCheckAdd}
                         checkUpdate={checkUpdate}

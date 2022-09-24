@@ -3,9 +3,9 @@
     background-color: #212121;
     height: 65%;
     width: 30%;
-    border-left: ridge 1px #3D3D3D;
-     border-bottom: ridge 1px #3D3D3D;
-     border-right: ridge 1px #3D3D3D;
+    border-left: solid 1px #3D3D3D;
+     border-bottom: solid 1px #3D3D3D;
+     border-right: solid 1px #3D3D3D;
 
     /*location*/
     margin: 0;
